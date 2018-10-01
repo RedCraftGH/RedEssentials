@@ -2,7 +2,7 @@ name: RedEssentials
 author: RedCraftPE
 version: 1.0.0
 api: 3.0.0, 4.0.0
-main: RedCraftPE\Main
+main: RedCraftPE\RedEssentials
 commands:
   gmc:
     usage: /gmc [player]

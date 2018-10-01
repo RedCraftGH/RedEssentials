@@ -33,7 +33,7 @@ class RedEssentials extends PluginBase implements Listener {
         if (!$args) {
           if ($sender->getGamemode() === 1) {
             $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode creative.");
-            return false;
+            return true;
           }
           $sender->setGamemode(1);
           $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to creative.");
@@ -42,14 +42,59 @@ class RedEssentials extends PluginBase implements Listener {
           $player = $this->getServer()->getPlayerExact("$args[0]");
           if (!$player) {
             $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-            return false;
+            return true;
           }
           $player->setGamemode(1);
           $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to creative.");
+          return true;
         } else {
           return false;
         }
-       break;
+        break;
+      case "gms":
+        if (!$args) {
+          if ($sender->getGamemode() === 0) {
+            $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode survival.");
+            return true;
+          }
+          $sender->setGamemode(0);
+          $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to survival.");
+          return true;
+        } elseif ($args[0]) {
+          $player = $this->getServer()->getPlayerExact("$args[0]");
+          if (!$player) {
+            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+            return true;
+          }
+          $player->setGamemode(0);
+          $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to survival.");
+          return true;
+        } else {
+          return false;
+        }
+        break;
+      case "gma":
+        if (!$args) {
+          if ($sender->getGamemode() === 2) {
+            $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode adventure.");
+            return true;
+          }
+          $sender->setGamemode(2);
+          $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to adventure.");
+          return true;
+        } elseif ($args[0]) {
+          $player = $this->getServer()->getPlayerExact("$args[0]");
+          if (!$player) {
+            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+            return true;
+          }
+          $player->setGamemode(2);
+          $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to adventure.");
+          return true;
+        } else {
+          return false;
+        }
+        break;
      }
     return false;
   }

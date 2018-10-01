@@ -14,3 +14,9 @@ commands:
           redessentials.gmc:
             default: op
             description: With this permission players will be able to give themselves creative mode.
+          redessentials.gms:
+            default: op
+            description: With this permission players will be able to give themselves survival mode.
+          redessentials.gma:
+            default: op
+            description: With this permission players will be able to give themselves adventure mode.

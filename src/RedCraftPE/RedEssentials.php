@@ -25,6 +25,31 @@ class RedEssentials extends PluginBase implements Listener {
   }
   public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
   
+    $command = strtolower($command->getName());
+    $prefix = TextFormat::RED . "Red" . TextFormat::BLUE . "Essentials" . TextFormat::WHITE . " > ";
     
+    switch ($command) {
+      case "gmc":
+        if (!$args) {
+          if ($sender->getGamemode() === 1) {
+            $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode creative.");
+            return false;
+          }
+          $sender->setGamemode(1);
+          $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to creative.");
+          return true;
+        } elseif ($args[0]) {
+          $player = $this->getServer()->getPlayerExact("$args[0]");
+          if (!$player) {
+            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+            return false;
+          }
+          $player->setGamemode(1);
+          $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to creative.");
+        } else {
+          return false;
+        }
+       break;
+     }
   }
 }

@@ -51,5 +51,6 @@ class RedEssentials extends PluginBase implements Listener {
         }
        break;
      }
+    return false;
   }
 }

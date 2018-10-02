@@ -14,8 +14,6 @@ class RedEssentials extends PluginBase implements Listener {
   
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $this->saveDefaultConfig();
-    $this->reloadConfig();
   }
   public function onDisable() : void {
   
@@ -105,18 +103,5 @@ class RedEssentials extends PluginBase implements Listener {
         break;
      }
     return false;
-  }
-  public function onMove(PlayerMoveEvent $event) {
-  
-    $player = $event->getPlayer();
-    $position = $player->getPosition();
-    if ($player->isOnGround()) {
-    
-      $this->getConfig()->set($player->getName(), $position);
-      $this->getConfig()->save();
-    } elseif ($player->getY() <= -1) {
-    
-      $player->teleport($position);
-    }
   }
 }

@@ -7,6 +7,7 @@ use pocketmine\event\Listener;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
+use pocketmine\event\player\PlayerMoveEvent;
 
 class RedEssentials extends PluginBase implements Listener {
 
@@ -14,6 +15,11 @@ class RedEssentials extends PluginBase implements Listener {
   
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    if(!file_exists($this->getDataFolder() . "config.yml")){
+      @mkdir($this->getDataFolder());
+      $this->saveResource("config.yml");
+      $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+    }
   }
   public function onDisable() : void {
   
@@ -103,5 +109,21 @@ class RedEssentials extends PluginBase implements Listener {
         break;
      }
     return false;
+  }
+  public function onMove(PlayerMoveEvent $event) {
+  
+    $player = $event->getPlayer();
+    if ($player->isOnGround()) {
+      
+      $position = array($player->getX(), $player->getY(), $player->getZ());
+      $this->config->setNested($player->getName(), $position);
+    } elseif (!$player->isOnGround()) {
+    
+      if ($player->getY() <= -1) {
+      
+        $array = $this->config->get($player->getName());
+        $player->teleport(new Vector3($array[0], $array[1], $array[2]));
+      }
+    }
   }
 }

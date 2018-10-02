@@ -14,12 +14,8 @@ class RedEssentials extends PluginBase implements Listener {
   
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    @mkdir($this->getDataFolder());
-    if (!file_exists($this->getDataFolder() . "config.yml") {
-      $this->saveResource("config.yml");
-    }
-    $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-    $this->config->reload();
+    $this->saveDefaultConfig();
+    $this->reloadConfig();
   }
   public function onDisable() : void {
   
@@ -117,6 +113,7 @@ class RedEssentials extends PluginBase implements Listener {
     if ($player->isOnGround()) {
     
       $this->getConfig()->set($player->getName(), $position);
+      $this->getConfig()->save();
     } elseif ($player->getY() <= -1) {
     
       $player->teleport($position);

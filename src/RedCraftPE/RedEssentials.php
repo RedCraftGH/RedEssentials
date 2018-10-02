@@ -8,6 +8,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\utils\Config;
 
 class RedEssentials extends PluginBase implements Listener {
 

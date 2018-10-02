@@ -14,10 +14,11 @@ class RedEssentials extends PluginBase implements Listener {
   
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    if (!file_exists($this->getDataFolder() . "config.yml")) {
-      $this->saveDefaultConfig();
+    if (!file_exists($this->getDataFolder() . "config.yml") {
+      $this->saveResource("config.yml");
     }
-    $this->reloadConfig();
+    $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+    $this->config->reload();
   }
   public function onDisable() : void {
   

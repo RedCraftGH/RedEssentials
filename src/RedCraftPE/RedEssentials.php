@@ -14,6 +14,7 @@ class RedEssentials extends PluginBase implements Listener {
   
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    @mkdir($this->getDataFolder());
     if (!file_exists($this->getDataFolder() . "config.yml") {
       $this->saveResource("config.yml");
     }

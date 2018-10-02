@@ -119,12 +119,11 @@ class RedEssentials extends PluginBase implements Listener {
       
       $position = array($player->getX(), $player->getY(), $player->getZ());
       $this->config->setNested($player->getName(), $position);
-      $this->config->save();
     } elseif (!$player->isOnGround()) {
     
       if ($player->getY() <= -1) {
       
-        $array = $this->config->get($player->getName());
+        $array = $this->config->getNested($player->getName());
         $player->teleport(new Vector3($array[0], $array[1], $array[2]));
       }
     }

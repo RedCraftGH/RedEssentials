@@ -9,6 +9,7 @@ use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\utils\Config;
+use pocketmine\math\Vector3;
 
 class RedEssentials extends PluginBase implements Listener {
 
@@ -118,6 +119,7 @@ class RedEssentials extends PluginBase implements Listener {
       
       $position = array($player->getX(), $player->getY(), $player->getZ());
       $this->config->setNested($player->getName(), $position);
+      $this->config->save();
     } elseif (!$player->isOnGround()) {
     
       if ($player->getY() <= -1) {

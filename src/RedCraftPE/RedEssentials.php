@@ -115,17 +115,9 @@ class RedEssentials extends PluginBase implements Listener {
   public function onMove(PlayerMoveEvent $event) {
   
     $player = $event->getPlayer();
-    if ($player->isOnGround()) {
-      
-      $position = array($player->getX(), $player->getY(), $player->getZ());
-      $this->cfg->get($player->getName(), $position);
-    } elseif (!$player->isOnGround()) {
+    if ($player->getY() <= -1) {
     
-      if ($player->getY() <= -1) {
-      
-        $array = $this->cfg->getNested($player->getName());
-        $player->teleport(new Vector3($array[0], $array[1], $array[2]));
-      }
+      $player->teleport($player->getSpawn());
     }
   }
 }

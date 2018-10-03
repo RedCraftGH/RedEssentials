@@ -109,6 +109,159 @@ class RedEssentials extends PluginBase implements Listener {
           }
         }
         break;
+        
+      case "heal":
+
+        if ($sender->hasPermission("redessentials.heal") || $sender->hasPermission("redessentials.*")) {
+
+          if (!$args) {
+
+            $sender->setHealth(20);
+
+            $sender->sendMessage($prefix . TextFormat::GREEN . "You have been healed.");
+
+            return true;
+
+          } elseif ($args[0]) {
+
+            $player = $this->getServer()->getPlayerExact("$args[0]");
+
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+
+              return true;
+
+            }
+
+            $player->setHealth(20);
+
+            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s has been healed.");
+
+            return true;
+
+          } else {
+
+            return false;
+
+          }
+
+        }
+
+        break;
+
+      case "kill":
+
+        if ($sender->hasPermission("redessentials.kill") || $sender->hasPermission("redessentials.*")) {
+
+          if (!$args) {
+
+            $sender->setHealth(0);
+
+            $sender->sendMessage($prefix . TextFormat::GREEN . "You killed yourself.");
+
+            return true;
+
+          } elseif ($args[0]) {
+
+            $player = $this->getServer()->getPlayerExact("$args[0]");
+
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+
+              return true;
+
+            }
+
+            $player->setHealth(0);
+
+            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s has been killed.");
+
+            return true;
+
+          } else {
+
+            return false;
+
+          }
+
+        }
+
+        break;
+
+      case "feed":
+
+        if ($sender->hasPermission("redessentials.feed") || $sender->hasPermission("redessentials.*")) {
+
+          if (!$args) {
+
+            $sender->setFood(20);
+
+            $sender->sendMessage($prefix . TextFormat::GREEN . "You have been fed.");
+
+            return true;
+
+          } elseif ($args[0]) {
+
+            $player = $this->getServer()->getPlayerExact("$args[0]");
+
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+
+              return true;
+
+            }
+
+            $player->setFood(20);
+
+            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s has been fed.");
+
+            return true;
+
+          } else {
+
+            return false;
+
+          }
+
+        }
+
+        break;
+
+      case "starve":
+
+        if ($sender->hasPermission("redessentials.starve") || $sender->hasPermission("redessentials.*")) {
+
+          if (!$args) {
+
+            $sender->setFood(0);
+
+            $sender->sendMessage($prefix . TextFormat::GREEN . "You are starving.");
+
+            return true;
+
+          } elseif ($args[0]) {
+
+            $player = $this->getServer()->getPlayerExact("$args[0]");
+
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+
+              return true;
+
+            }
+
+            $player->setFood(0);
+
+            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s is starving.");
+
+            return true;
+
+          } else {
+        
      }
     return false;
   }

@@ -14,7 +14,7 @@ use pocketmine\math\Vector3;
 class RedEssentials extends PluginBase implements Listener {
 
   public function onEnable() : void {
-  
+
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     if(!file_exists($this->getDataFolder() . "config.yml")){
@@ -24,18 +24,18 @@ class RedEssentials extends PluginBase implements Listener {
     $this->reloadConfig();
   }
   public function onDisable() : void {
-  
+
   $this->getLogger()->info(TextFormat::RED . "RedEssentials is now disabled on " . $this->getServer()->getName());
   }
   public function onLoad() : void {
-  
+
   $this->getLogger()->info(TextFormat::RED . "RedEssentials is now loaded on " . $this->getServer()->getName());
   }
   public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
-  
+
     $command = strtolower($command->getName());
     $prefix = TextFormat::RED . "Red" . TextFormat::BLUE . "Essentials" . TextFormat::WHITE . " > ";
-    
+
     switch ($command) {
       case "gmc":
         if ($sender->hasPermission("redessentials.gmc") || $sender->hasPermission("redessentials.*")) {
@@ -109,7 +109,7 @@ class RedEssentials extends PluginBase implements Listener {
           }
         }
         break;
-        
+
       case "heal":
 
         if ($sender->hasPermission("redessentials.heal") || $sender->hasPermission("redessentials.*")) {
@@ -236,40 +236,38 @@ class RedEssentials extends PluginBase implements Listener {
 
           if (!$args) {
 
-            $sender->setFood(0);
-
-            $sender->sendMessage($prefix . TextFormat::GREEN . "You are starving.");
-
+           $sender->setFood(0);
+           $sender->sendMessage($prefix . TextFormat::GREEN . "You are starving.");
             return true;
+         } elseif ($args[0]) {
 
-          } elseif ($args[0]) {
+           $player = $this->getServer()->getPlayerExact("$args[0]");
 
-            $player = $this->getServer()->getPlayerExact("$args[0]");
+           if (!$player) {
 
-            if (!$player) {
-
-              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-
+             $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
               return true;
-
             }
 
             $player->setFood(0);
-
             $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s is starving.");
-
             return true;
-
           } else {
-        
-     }
-    return false;
+
+            return false;
+          }
+        }
+        break;
+      case "freeze":
+        return true;
+        break;
+    }
   }
   public function onMove(PlayerMoveEvent $event) {
-  
+
     $player = $event->getPlayer();
     if ($player->getY() <= -1) {
-    
+
       $player->teleport($player->getSpawn());
     }
   }

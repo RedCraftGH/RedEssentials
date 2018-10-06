@@ -18,10 +18,15 @@ class RedEssentials extends PluginBase implements Listener {
     $this->getLogger()->info(TextFormat::RED . "RedEssentials is now enabled on " . $this->getServer()->getName());
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     if(!file_exists($this->getDataFolder() . "config.yml")){
+      
       $this->saveDefaultConfig();
-      $this->getDefaultConfig()->set("Safe Void", false);
     }
     $this->cfg = $this->getConfig();
+    if (!$this>cfg->exists("Safe Void") {
+      
+      $this->cfg->set("Safe Void", false);
+    }
+    $this->cfg->save();
     $this->reloadConfig();
   }
   public function onDisable() : void {
@@ -40,41 +45,55 @@ class RedEssentials extends PluginBase implements Listener {
     switch ($command) {
       case "gmc":
         if ($sender->hasPermission("redessentials.gmc") || $sender->hasPermission("redessentials.*")) {
+          
           if (!$args) {
+            
             if ($sender->getGamemode() === 1) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode creative.");
               return true;
             }
+            
             $sender->setGamemode(1);
             $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to creative.");
             return true;
           } elseif ($args[0]) {
+            
             $player = $this->getServer()->getPlayerExact("$args[0]");
             if (!$player) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
               return true;
             }
+            
             $player->setGamemode(1);
             $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to creative.");
             return true;
           } else {
+            
             return false;
           }
         }
         break;
       case "gms":
         if ($sender->hasPermission("redessentials.gms") || $sender->hasPermission("redessentials.*")) {
+          
           if (!$args) {
+            
             if ($sender->getGamemode() === 0) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode survival.");
               return true;
             }
+            
             $sender->setGamemode(0);
             $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to survival.");
             return true;
           } elseif ($args[0]) {
+            
             $player = $this->getServer()->getPlayerExact("$args[0]");
             if (!$player) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
               return true;
             }
@@ -82,23 +101,30 @@ class RedEssentials extends PluginBase implements Listener {
             $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to survival.");
             return true;
           } else {
+            
             return false;
           }
         }
         break;
       case "gma":
         if ($sender->hasPermission("redessentials.gma") || $sender->hasPermission("redessentials.*")) {
+          
           if (!$args) {
+            
             if ($sender->getGamemode() === 2) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode adventure.");
               return true;
             }
+            
             $sender->setGamemode(2);
             $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to adventure.");
             return true;
           } elseif ($args[0]) {
+            
             $player = $this->getServer()->getPlayerExact("$args[0]");
             if (!$player) {
+              
               $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
               return true;
             }
@@ -106,6 +132,7 @@ class RedEssentials extends PluginBase implements Listener {
             $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to adventure.");
             return true;
           } else {
+            
             return false;
           }
         }
@@ -146,9 +173,7 @@ class RedEssentials extends PluginBase implements Listener {
             return false;
 
           }
-
         }
-
         break;
       case "feed":
 
@@ -185,9 +210,7 @@ class RedEssentials extends PluginBase implements Listener {
             return false;
 
           }
-
         }
-
         break;
 
       case "starve":
@@ -219,54 +242,58 @@ class RedEssentials extends PluginBase implements Listener {
         }
         break;
       case "freeze":
-        if (!args) {
-          
+        if ($sender->hasPermission("redessentials.freeze") || $sender->hasPermissions("redessentials.*") {
+          if (!args) {
+
+            return false;
+          } else {
+
+            $player = $this->getServer()->getPlayerExact(implode(" ", $args));
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+              return true;
+            }
+
+            if ($player->isImmobile()) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is already frozen");
+              return true;
+            }
+
+            $player->setImmobile(true);
+            $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is now frozen.");
+            return true;
+          }
           return false;
-        } else {
-        
-          $player = $this->getServer()->getPlayerExact(implode(" ", $args));
-          if (!$player) {
-          
-            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-            return true;
-          }
-          
-          if ($player->isImmobile()) {
-            
-            $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is already frozen");
-            return true;
-          }
-          
-          $player->setImmobile(true);
-          $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is now frozen.");
-          return true;
         }
-        return false;
         break;
       case "unfreeze":
-        if (!args) {
-          
+        if ($sender->hasPermission("redessentials.ufreeze") || $sender->hasPermissions("redessentials.*") {
+          if (!args) {
+
+            return false;
+          } else {
+
+            $player = $this->getServer()->getPlayerExact(implode(" ", $args));
+            if (!$player) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+              return true;
+            }
+
+            if (!$player->isImmobile()) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is not frozen.");
+              return true;
+            }
+
+            $player->setImmobile(false);
+            $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is no longer frozen.");
+            return true;
+          }
           return false;
-        } else {
-        
-          $player = $this->getServer()->getPlayerExact(implode(" ", $args));
-          if (!$player) {
-          
-            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-            return true;
-          }
-          
-          if (!$player->isImmobile()) {
-            
-            $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is not frozen.");
-            return true;
-          }
-          
-          $player->setImmobile(false);
-          $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is no longer frozen.");
-          return true;
         }
-        return false;
         break;
     }
   }

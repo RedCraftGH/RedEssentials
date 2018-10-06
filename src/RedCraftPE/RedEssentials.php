@@ -19,6 +19,7 @@ class RedEssentials extends PluginBase implements Listener {
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     if(!file_exists($this->getDataFolder() . "config.yml")){
       $this->saveDefaultConfig();
+      $this->getDefaultConfig()->set("Safe Void", false);
     }
     $this->cfg = $this->getConfig();
     $this->reloadConfig();
@@ -246,7 +247,7 @@ class RedEssentials extends PluginBase implements Listener {
            if (!$player) {
 
              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-              return true;
+             return true;
             }
 
             $player->setFood(0);
@@ -259,16 +260,66 @@ class RedEssentials extends PluginBase implements Listener {
         }
         break;
       case "freeze":
-        return true;
+        if (!args) {
+          
+          return false;
+        } else {
+        
+          $player = $this->getServer()->getPlayerExact(implode(" ", $args));
+          if (!$player) {
+          
+            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+            return true;
+          }
+          
+          if ($player->isImmobile()) {
+            
+            $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is already frozen");
+            return true;
+          }
+          
+          $player->setImmobile(true);
+          $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is now frozen.");
+          return true;
+        }
+        return false;
+        break;
+      case "unfreeze":
+        if (!args) {
+          
+          return false;
+        } else {
+        
+          $player = $this->getServer()->getPlayerExact(implode(" ", $args));
+          if (!$player) {
+          
+            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+            return true;
+          }
+          
+          if (!$player->isImmobile()) {
+            
+            $sender->sendMessage($prefix . TextFormat::RED . $player->getName() . " is not frozen.");
+            return true;
+          }
+          
+          $player->setImmobile(false);
+          $sender->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is no longer frozen.");
+          return true;
+        }
+        return false;
         break;
     }
   }
   public function onMove(PlayerMoveEvent $event) {
 
     $player = $event->getPlayer();
-    if ($player->getY() <= -1) {
+    
+    if ($this->cfg->get("Safe Void") === true) {
+      if ($player->getY() <= -1) {
 
-      $player->teleport($player->getSpawn());
+        $player->teleport($player->getSpawn());
+      }
     }
   }
 }

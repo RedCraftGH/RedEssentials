@@ -21,6 +21,8 @@ class RedEssentials extends PluginBase implements Listener {
       
       $this->saveDefaultConfig();
       $this->getConfig()->set("Safe Void", false);
+      $this->getConfig()->set("Void Worlds", []);
+      $this->getConfig()->set("No Hunger", false);
     }
     $this->cfg = $this->getConfig();
     $this->cfg->save();
@@ -292,13 +294,60 @@ class RedEssentials extends PluginBase implements Listener {
           return false;
         }
         break;
+      case "hunger":
+        if ($sender->hasPermission("redessentials.hunger") || $sender->hasPermission("redessentials.*")) {
+        
+          if (!$args) {
+            
+            return false; 
+          } else {
+          
+            if ($args[0] === "yes") {
+            
+              if ($this->cfg->get("No Hunger") === false) { 
+                
+                $this->cfg->set("No Hunger", true);
+                $sender->sendMessage($prefix . TextFormat::GREEN . " No Hunger is now enabled!");
+                return true;
+              } else {
+              
+                $sender->sendMessage($prefix . TextFormat::RED . " No hunger is already enabled!");
+                return true;
+              }
+            } elseif ($args[0] === "no") {
+            
+              if ($this->cfg->get("No Hunger") === true) { 
+                
+                $this->cfg->set("No Hunger", false);
+                $sender->sendMessage($prefix . TextFormat::GREEN . " No Hunger is now disabled!");
+                return true;
+              } else {
+              
+                $sender->sendMessage($prefix . TextFormat::RED . " No hunger is already disabled!");
+                return true;
+              }
+            } else {
+            
+              return false;
+            }
+          }
+        }
+        break;
     }
   }
   public function onMove(PlayerMoveEvent $event) {
 
     $player = $event->getPlayer();
+    if ($this->cfg->get("No Hunger") === true) {
+      
+      if ($player->getFood() < 20) {
+
+        $player-setFood(20); 
+      }
+    }
     
     if ($this->cfg->get("Safe Void") === true) {
+      
       if ($player->getY() <= -1) {
 
         $player->teleport($player->getSpawn());

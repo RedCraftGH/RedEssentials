@@ -240,7 +240,7 @@ class RedEssentials extends PluginBase implements Listener {
         break;
       case "freeze":
         if ($sender->hasPermission("redessentials.freeze") || $sender->hasPermissions("redessentials.*") {
-          if (!args) {
+          if (!$args) {
 
             return false;
           } else {
@@ -267,7 +267,7 @@ class RedEssentials extends PluginBase implements Listener {
         break;
       case "unfreeze":
         if ($sender->hasPermission("redessentials.ufreeze") || $sender->hasPermissions("redessentials.*") {
-          if (!args) {
+          if (!$args) {
 
             return false;
           } else {

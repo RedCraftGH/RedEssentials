@@ -24,7 +24,7 @@ class RedEssentials extends PluginBase implements Listener {
     $this->cfg = $this->getConfig();
     if (!$this->cfg->exists("Safe Void") {
       
-      $this->cfg->set("Safe Void", false);
+      $this->cfg->set("Safe_Void", false);
     }
     $this->cfg->save();
     $this->reloadConfig();

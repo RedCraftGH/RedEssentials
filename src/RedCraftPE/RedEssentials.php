@@ -150,47 +150,6 @@ class RedEssentials extends PluginBase implements Listener {
         }
 
         break;
-
-      case "kill":
-
-        if ($sender->hasPermission("redessentials.kill") || $sender->hasPermission("redessentials.*")) {
-
-          if (!$args) {
-
-            $sender->setHealth(0);
-
-            $sender->sendMessage($prefix . TextFormat::GREEN . "You killed yourself.");
-
-            return true;
-
-          } elseif ($args[0]) {
-
-            $player = $this->getServer()->getPlayerExact("$args[0]");
-
-            if (!$player) {
-
-              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
-
-              return true;
-
-            }
-
-            $player->setHealth(0);
-
-            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s has been killed.");
-
-            return true;
-
-          } else {
-
-            return false;
-
-          }
-
-        }
-
-        break;
-
       case "feed":
 
         if ($sender->hasPermission("redessentials.feed") || $sender->hasPermission("redessentials.*")) {

@@ -29,6 +29,9 @@ commands:
   unfreeze:
     usage: /unfreeze <player>
     description: This command will unfreeze the target!
+  hunger:
+    usage: /hunger <on/off>
+    description: Enable/disable hunger on the server!
 permissions:
   redessentials.*:
     default: op
@@ -57,4 +60,6 @@ permissions:
       redessentials.ufreeze:
         default: op
         description: With this permission players will be able to unfreeze others.
-        description: With this permission players will be able to give themselves survival mode.
+      redessentials.hunger:
+        default: op
+        description: With this permission players can enable/disable hunger on the server.

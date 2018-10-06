@@ -342,7 +342,7 @@ class RedEssentials extends PluginBase implements Listener {
       
       if ($player->getFood() < 20) {
 
-        $player-setFood(20); 
+        $player->setFood(20); 
       }
     }
     

@@ -302,7 +302,7 @@ class RedEssentials extends PluginBase implements Listener {
             return false; 
           } else {
           
-            if ($args[0] === "yes") {
+            if ($args[0] === "on") {
             
               if ($this->cfg->get("No Hunger") === false) { 
                 
@@ -314,7 +314,7 @@ class RedEssentials extends PluginBase implements Listener {
                 $sender->sendMessage($prefix . TextFormat::RED . " No hunger is already enabled!");
                 return true;
               }
-            } elseif ($args[0] === "no") {
+            } elseif ($args[0] === "off") {
             
               if ($this->cfg->get("No Hunger") === true) { 
                 

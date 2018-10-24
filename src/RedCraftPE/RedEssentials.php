@@ -10,6 +10,7 @@ use pocketmine\utils\TextFormat;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\utils\Config;
 use pocketmine\math\Vector3;
+use pocketmine\item\Tool;
 
 class RedEssentials extends PluginBase implements Listener {
 
@@ -409,6 +410,62 @@ class RedEssentials extends PluginBase implements Listener {
               return false;
             }
           }
+        }
+        break;
+      case "vanish":
+        
+        if ($sender->hasPermission("redessentials.vanish") || $sender->hasPermission("redessentials.*")) {
+          
+          if (!$args) {
+            
+            if ($sender->isVisible()) {
+
+              $sender->setVisible(false);
+              $sender->sendMessage($prefix . TextFormat::GREEN . "You are no longer invisible.");
+              return true;
+            } else {
+
+              $sender->setVisible(true);
+              $sender->sendMessage($prefix . TextFormat::GREEN . "You are now invisible.");
+              return true;
+            }
+          } else {
+          
+            $player = $this->getServer()->getPlayerExact(implode(" ", $args));
+            if (!$player) {
+            
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $player->getName());
+              return true;
+            }
+            if ($player->isVisible()) {
+
+              $player->setVisible(false);
+              $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is no longer invisible.");
+              return true;
+            } else {
+
+              $player->setVisible(true);
+              $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is now invisible.");
+              return true;
+            }
+          }
+        }
+        break;
+      case "repair":
+        
+        if ($sender->hasPermission("redessentials.repair") || $sender->hasPermission("redessentials.*")) {
+         
+            $item = $sender->getInventory()->getItemInHand();
+            if ($item instanceof Tool) {
+            
+              $item->setDamage(0);
+              $sender->sendMessage($prefix . TextFormat::GREEN . $item->getName() . " has been repaired.");
+              return true;
+            } else {
+            
+              $sender->sendMessage($prefix . TextFormat::RED . "This is not a repairable item!");
+              return true;
+            }
         }
         break;
     }

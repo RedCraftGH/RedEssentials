@@ -458,7 +458,7 @@ class RedEssentials extends PluginBase implements Listener {
             $item = $sender->getInventory()->getItemInHand();
             if ($item instanceof Tool) {
             
-              $sender->getInventory()->setItem($index, $item->setDamage(0));
+              $sender->getInventory()->setItemInHand($item->setDamage(0));
               $sender->sendMessage($prefix . TextFormat::GREEN . $item->getName() . " has been repaired.");
               return true;
             } else {

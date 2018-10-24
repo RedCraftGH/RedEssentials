@@ -335,73 +335,76 @@ class RedEssentials extends PluginBase implements Listener {
         break;
       case "svoid":
         
-        if (!$args) {
-         
-          return false;
-        } elseif (count($args) === 1) {
-          
-          if ($args[0] === "on") {
-            
-            if ($this->cfg->get("Safe Void") === true) {
-            
-              $sender->sendMessage($prefix . TextFormat::RED . "Safe void is already enabled!");
-              return true;
-            }
-          
-            $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been enabled!");
-            $this->cfg->set("Safe Void", true);
-            $this->cfg->save();
-            return true;
-          } elseif ($args[0] === "off") {
-            
-            if ($this->cfg->get("Safe Void") === true) {
-            
-              $sender->sendMessage($prefix . TextFormat::RED . "Safe void is already disabled!");
-              return true;
-            }
-          
-            $sender->sendMessage($prefix . TextFormat::GREEN . "Safe void has been disabled!");
-            $this->cfg->set("Safe Void", false);
-            $this->cfg->save();
-          } else {
-          
+        if ($sender->hasPermission("redessentials.svoid") || $sender->hasPermission("redessentials.*")) {
+        
+          if (!$args) {
+
             return false;
-          }
-        } else {
-          
-          $level = $this->getServer()->getLevelByName($args[1]);
-          if (!$level) {
-          
-            $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a world with the name " . TextFormat::WHITE . $args[1]);
-            return true;
-          }
-          if ($args[0] === "on") {
-            
-            if (in_array($args[1], $this->cfg->get("Void Worlds")) {
-          
-              $sender->sendMessage($prefix . TextFormat::WHITE . $args[1] . TextFormat::RED . " already has Safe Void enabled!");
+          } elseif (count($args) === 1) {
+
+            if ($args[0] === "on") {
+
+              if ($this->cfg->get("Safe Void") === true) {
+
+                $sender->sendMessage($prefix . TextFormat::RED . "Safe void is already enabled!");
+                return true;
+              }
+
+              $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been enabled!");
+              $this->cfg->set("Safe Void", true);
+              $this->cfg->save();
               return true;
+            } elseif ($args[0] === "off") {
+
+              if ($this->cfg->get("Safe Void") === true) {
+
+                $sender->sendMessage($prefix . TextFormat::RED . "Safe void is already disabled!");
+                return true;
+              }
+
+              $sender->sendMessage($prefix . TextFormat::GREEN . "Safe void has been disabled!");
+              $this->cfg->set("Safe Void", false);
+              $this->cfg->save();
+            } else {
+
+              return false;
             }
-          
-            $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been enabled in " . TextFormat::WHITE . $args[1]);
-            $voidWorlds = $this->cfg->get("Void Worlds");
-            $voidWorlds[] = $args[1];
-            $this->cfg->set("Void Worlds", $voidWorlds);
-            $this->cfg->save();
-          } elseif ($args[0] === "off") {
-          
-            if (!(in_array($args[1], $this->cfg->get("Void Worlds"))) {
-          
-              $sender->sendMessage($prefix . TextFormat::WHITE . $args[1] . TextFormat::RED . " does not have Safe Void enabled!");
-              return true;
-            }
-                
-            $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been disabled in " . TextFormat::WHITE . $args[1]);
-            $this->cfg->removeNested("Void Worlds", $args[1]);
-            $this->cfg->save();
           } else {
-          
-            return false;
+
+            $level = $this->getServer()->getLevelByName($args[1]);
+            if (!$level) {
+
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a world with the name " . TextFormat::WHITE . $args[1]);
+              return true;
+            }
+            if ($args[0] === "on") {
+
+              if (in_array($args[1], $this->cfg->get("Void Worlds")) {
+
+                $sender->sendMessage($prefix . TextFormat::WHITE . $args[1] . TextFormat::RED . " already has Safe Void enabled!");
+                return true;
+              }
+
+              $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been enabled in " . TextFormat::WHITE . $args[1]);
+              $voidWorlds = $this->cfg->get("Void Worlds");
+              $voidWorlds[] = $args[1];
+              $this->cfg->set("Void Worlds", $voidWorlds);
+              $this->cfg->save();
+            } elseif ($args[0] === "off") {
+
+              if (!(in_array($args[1], $this->cfg->get("Void Worlds"))) {
+
+                $sender->sendMessage($prefix . TextFormat::WHITE . $args[1] . TextFormat::RED . " does not have Safe Void enabled!");
+                return true;
+              }
+
+              $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been disabled in " . TextFormat::WHITE . $args[1]);
+              $this->cfg->removeNested("Void Worlds", $args[1]);
+              $this->cfg->save();
+            } else {
+
+              return false;
+            }
           }
         }
         break;

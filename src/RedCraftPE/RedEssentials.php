@@ -365,6 +365,7 @@ class RedEssentials extends PluginBase implements Listener {
               $sender->sendMessage($prefix . TextFormat::GREEN . "Safe void has been disabled!");
               $this->cfg->set("Safe Void", false);
               $this->cfg->save();
+              return true;
             } else {
 
               return false;
@@ -390,6 +391,7 @@ class RedEssentials extends PluginBase implements Listener {
               $voidWorlds[] = $args[1];
               $this->cfg->set("Void Worlds", $voidWorlds);
               $this->cfg->save();
+              return true;
             } elseif ($args[0] === "off") {
 
               if (!(in_array($args[1], $this->cfg->get("Void Worlds")))) {
@@ -401,6 +403,7 @@ class RedEssentials extends PluginBase implements Listener {
               $sender->sendMessage($prefix . TextFormat::GREEN . "Safe Void has been disabled in " . TextFormat::WHITE . $args[1]);
               $this->cfg->removeNested("Void Worlds", $args[1]);
               $this->cfg->save();
+              return true;
             } else {
 
               return false;

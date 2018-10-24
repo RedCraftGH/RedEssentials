@@ -356,7 +356,7 @@ class RedEssentials extends PluginBase implements Listener {
               return true;
             } elseif ($args[0] === "off") {
 
-              if ($this->cfg->get("Safe Void") === true) {
+              if ($this->cfg->get("Safe Void") === false) {
 
                 $sender->sendMessage($prefix . TextFormat::RED . "Safe void is already disabled!");
                 return true;

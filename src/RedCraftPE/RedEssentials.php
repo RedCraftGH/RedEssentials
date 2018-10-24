@@ -392,7 +392,7 @@ class RedEssentials extends PluginBase implements Listener {
               $this->cfg->save();
             } elseif ($args[0] === "off") {
 
-              if (!(in_array($args[1], $this->cfg->get("Void Worlds"))) {
+              if (!(in_array($args[1], $this->cfg->get("Void Worlds")))) {
 
                 $sender->sendMessage($prefix . TextFormat::WHITE . $args[1] . TextFormat::RED . " does not have Safe Void enabled!");
                 return true;

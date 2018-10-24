@@ -418,14 +418,14 @@ class RedEssentials extends PluginBase implements Listener {
           
           if (!$args) {
             
-            if ($sender->isVisible()) {
+            if ($sender->isInvisible()) {
 
-              $sender->setVisible(false);
+              $sender->setInvisible(false);
               $sender->sendMessage($prefix . TextFormat::GREEN . "You are no longer invisible.");
               return true;
             } else {
 
-              $sender->setVisible(true);
+              $sender->setInvisible(true);
               $sender->sendMessage($prefix . TextFormat::GREEN . "You are now invisible.");
               return true;
             }
@@ -437,14 +437,14 @@ class RedEssentials extends PluginBase implements Listener {
               $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $player->getName());
               return true;
             }
-            if ($player->isVisible()) {
+            if ($player->isInvisible()) {
 
-              $player->setVisible(false);
+              $player->setInvisible(false);
               $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is no longer invisible.");
               return true;
             } else {
 
-              $player->setVisible(true);
+              $player->setInvisible(true);
               $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . " is now invisible.");
               return true;
             }

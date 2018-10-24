@@ -35,6 +35,12 @@ commands:
   svoid:
     usage: /svoid <on/off> [world]
     description: Enable/disable the void in an entire server or a specific world!
+  repair:
+    usage: /repair
+    description: Repair the item in your hand, if repairable!
+  vanish:
+    usage: /vanish [player]
+    description: Vanish! Become invisible, or make someone else invisible!
 permissions:
   redessentials.*:
     default: op
@@ -69,3 +75,9 @@ permissions:
       redessentials.svoid:
         default: op
         description: With this permission players can enable/disable Safe Void in the entire server or in a specific world.
+      redessentials.vanish:
+        default: op
+        description: With this permission players can make themselves, or others, invisible.
+      redessentials.repair:
+        default: op
+        description: With this permission players can repair the tool in their hand.

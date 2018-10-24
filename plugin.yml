@@ -32,6 +32,9 @@ commands:
   hunger:
     usage: /hunger <on/off>
     description: Enable/disable hunger on the server!
+  svoid:
+    usage: /svoid <on/off> [world]
+    description: Enable/disable the void in an entire server or a specific world!
 permissions:
   redessentials.*:
     default: op
@@ -63,3 +66,6 @@ permissions:
       redessentials.hunger:
         default: op
         description: With this permission players can enable/disable hunger on the server.
+      redessentials.svoid:
+        default: op
+        description: With this permission players can enable/disable Safe Void in the entire server or in a specific world.

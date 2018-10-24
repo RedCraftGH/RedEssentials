@@ -430,7 +430,7 @@ class RedEssentials extends PluginBase implements Listener {
 
         $player->teleport($player->getSpawn());
       }
-    } elseif (in_array($player->getLevel()->getName(), $this->cfg->get("Void Worlds"))) {
+    } elseif (in_array($player->getLevel()->getName(), $this->cfg->get("Void Worlds", []))) {
     
       if ($player->getY() <= -1) {
 

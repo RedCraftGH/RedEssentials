@@ -24,6 +24,7 @@ class RedEssentials extends PluginBase implements Listener {
       $this->getConfig()->set("Safe Void", false);
       $this->getConfig()->set("Void Worlds", []);
       $this->getConfig()->set("No Hunger", false);
+      $this->getConfig()->set("Spawn", []);
     }
     $this->cfg = $this->getConfig();
     $this->cfg->save();
@@ -466,6 +467,39 @@ class RedEssentials extends PluginBase implements Listener {
               $sender->sendMessage($prefix . TextFormat::RED . "This is not a repairable item!");
               return true;
             }
+        }
+        break;
+      case "spawn":
+        
+        if ($sender->hasPermission("redessentials.spawn" || $sender->hasPermission("redessentials.*")) {
+
+          $spawnArray = $this->cfg->get("Spawn", []);
+          if ($spawnArray === []) {
+          
+            $sender->sendMessage(TextFormat::RED . "No spawn has been set for this server");
+            return true;
+          }
+          $spawnX = $spawnArray["X"];
+          $spawnY = $spawnArray["Y"];
+          $spawnZ = $spawnArray["Z"];
+          $level = $this->getServer()->getLevelByName($spawnArray["level"]);
+          $sender->teleport(new Position($spawnX, $spawnY, $spawnZ, $level));
+          $sender->sendMessage($spawnArray["Spawn Message"]);
+          return true;
+        }
+        break;
+      case "setspawn":
+        if ($sender->hasPermission("redessentials.setspawn") || $sender->hasPermission("redessentials.*")) {
+        
+          $spawnArray = $this->cfg->get("Spawn", []);
+          $spawnArray["X"] = $sender->getX();
+          $spawnArray["Y"] = $sender->getY();
+          $spawnArray["Z"] = $sender->getZ();
+          $spawnArray["level"] = $sender->getLevel()->getName();
+          $this->cfg->set("Spawn", $spawnArray);
+          $this->cfg->save();
+          $sender->sendMessage($prefix . TextFormat::GREEN . "This server's spawn has been set to your current position!");
+          return true;
         }
         break;
     }

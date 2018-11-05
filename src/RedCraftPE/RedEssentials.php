@@ -471,7 +471,7 @@ class RedEssentials extends PluginBase implements Listener {
         break;
       case "spawn":
         
-        if ($sender->hasPermission("redessentials.spawn" || $sender->hasPermission("redessentials.*")) {
+        if ($sender->hasPermission("redessentials.spawn") || $sender->hasPermission("redessentials.*")) {
 
           $spawnArray = $this->cfg->get("Spawn", []);
           if ($spawnArray === []) {

@@ -492,11 +492,13 @@ class RedEssentials extends PluginBase implements Listener {
       case "setspawn":
         if ($sender->hasPermission("redessentials.setspawn") || $sender->hasPermission("redessentials.*")) {
         
+          $level = $sender->getLevel()->getName();
           $spawnArray = $this->cfg->get("Spawn", []);
           $spawnArray["X"] = $sender->getX();
           $spawnArray["Y"] = $sender->getY();
           $spawnArray["Z"] = $sender->getZ();
           $spawnArray["level"] = $sender->getLevel()->getName();
+          $spawnArray["Spawn Message"] = "§2You have been teleported to §b§l{$level}'s§r§2 spawn!";
           $this->cfg->set("Spawn", $spawnArray);
           $this->cfg->save();
           $sender->sendMessage($prefix . TextFormat::GREEN . "This server's spawn has been set to your current position!");

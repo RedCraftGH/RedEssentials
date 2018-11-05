@@ -11,6 +11,7 @@ use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\utils\Config;
 use pocketmine\math\Vector3;
 use pocketmine\item\Tool;
+use pocketmine\level\Position;
 
 class RedEssentials extends PluginBase implements Listener {
 

@@ -139,6 +139,38 @@ class RedEssentials extends PluginBase implements Listener {
           }
         }
         break;
+       case "gmspec":
+        if ($sender->hasPermission("redessentials.gmspec") || $sender->hasPermission("redessentials.*")) {
+          
+          if (!$args) {
+            
+            if ($sender->getGamemode() === 3) {
+              
+              $sender->sendMessage($prefix . TextFormat::RED . "You are already in gamemode spectator.");
+              return true;
+            }
+            
+            $sender->setGamemode(3);
+            $sender->sendMessage($prefix . TextFormat::GREEN . "Your gamemode has been set to spectator.");
+            return true;
+          } elseif ($args[0]) {
+            
+            $player = $this->getServer()->getPlayerExact("$args[0]");
+            if (!$player) {
+              
+              $sender->sendMessage($prefix . TextFormat::RED . "I cannot find a player with the name " . $args[0]);
+              return true;
+            }
+            $player->setGamemode(3);
+            $player->sendMessage($prefix . TextFormat::GREEN . $player->getName() . "'s gamemode has been set to spectator.");
+            return true;
+          } else {
+            
+            return false;
+          }
+        }
+        break;
+
 
       case "heal":
 

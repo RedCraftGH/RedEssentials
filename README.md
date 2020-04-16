@@ -10,6 +10,7 @@ If arguments are surrounded in [] it means they are optional, however, if they a
 | /gmc [player]           | Give yourself or others creative mode!                           | none    |
 | /gms [player]           | Give yourself or others survival mode!                           | none    |
 | /gma [player]           | Give yourself or others adventure mode!                          | none    |
+| /gmspec [player]        | Give yourself or others spectator mode!                          | none    |
 | /heal [player]          | Heal yourself or other players!                                  | none    |
 | /feed [player]          | Feed yourself or other players!                                  | none    |
 | /starve [player]        | Starve yourself or someone else!                                 | none    |

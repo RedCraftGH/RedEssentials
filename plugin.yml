@@ -13,6 +13,9 @@ commands:
   gma:
     usage: /gma [player]
     description: Give yourself or others adventure mode!
+  gmspec:
+    usage: /gmspec [player]
+    description: Give yourself or others spectator mode!
   heal:
     usage: /heal [player]
     description: Heal yourself or other players!
@@ -60,6 +63,9 @@ permissions:
       redessentials.gma:
         default: op
         description: With this permission players will be able to give themselves adventure mode.
+      redessentials.gmspec:
+        default: op
+        description: With this permission players will be able to give themselves spectator mode.
       redessentials.feed:
         default: op
         description: With this permission players will be able to feed themselves or others.
